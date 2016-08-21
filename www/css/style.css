@@ -1,0 +1,33 @@
+/* Empty. Add your own CSS if you like */
+/* 写一些leadPage的样式 */
+.leadPage-container .scroll{
+    height: 100%;
+}
+.leadPage-container .slider{
+    height: 100%;
+}
+.leadPage-container .box{
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+    padding: 150px 40px;
+}
+.leadPage-container .box .app-content{
+    text-align: left;
+}
+.leadPage-container .box.pink h5{
+    margin-top: 30px;
+}
+.leadPage-container .box.pink .button{
+    border-radius: 10px;
+    margin-top: 200px;
+}
+.leadPage-container .pink{
+    background-color: #ffc0cb;
+}
+.leadPage-container .blue{
+    background-color: deepskyblue;
+}
+.leadPage-container .yellow{
+    background-color: yellow;
+}
