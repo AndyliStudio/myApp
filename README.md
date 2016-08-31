@@ -12,12 +12,17 @@
 阿里面试
 
 ##运行
-```
-npm install
-bower install
-gulp serve
++ nodeServer
+nodeServer基于IBM的strongloop, 运行前请先安装strongloop，方法如下：
+`npm install -g strongloop`
+运行项目的话只需要 slc run 就可以了。如果是普通的node程序，在项目目录下npm install就可以了。
 
-```
++ ionic
+运行ionic需要先安装ionic：
+`npm install -g cordova ionic`
+启动项目只需要ionic serve就可以了
+
+
 
 ##关于nodejs后台的使用
 后台的用户管理用的是strongloop的loopback工具（用它搭建一个用户系统十分的方便）。
