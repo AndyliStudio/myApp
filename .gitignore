@@ -1,6 +1,39 @@
 # Specifies intentionally untracked files to ignore when using Git
 # http://git-scm.com/docs/gitignore
 
-node_modules/
-platforms/
-plugins/
+*.csv
+*.dat
+*.iml
+*.log
+*.out
+*.pid
+*.seed
+*.sublime-*
+*.swo
+*.swp
+*.tgz
+*.xml
+.DS_Store
+.idea
+.project
+.strong-pm
+coverage
+node_modules
+npm-debug.log
+
+##nodeServer目录下
+nodeServer/node_modules/
+nodeServer/npm-debug.log
+nodeServer/.vscode/
+nodeServer/.idea/
+nodeServer/server/networkReptile/node_modules/
+nodeServer/server/networkReptile/npm-debug.log
+
+#源码目录
+src/node_modules/
+src/npm-debug.log
+src/plugins
+src/coverage
+
+
+
