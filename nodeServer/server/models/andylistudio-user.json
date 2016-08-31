@@ -1,0 +1,20 @@
+{
+  "name": "andylistudio_user",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "sayHi"
+    }
+  ],
+  "methods": {}
+}
