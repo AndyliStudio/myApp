@@ -12,10 +12,15 @@ var chinese_parseInt = require('./tools/chinese-parseint');
 
 var app = express();
 var firstSignUrls = [];
+var secondSign = config.websiteConfig[0].publishSite.baiduTieBa.secondSign;
+var firstSign = config.websiteConfig[0].publishSite.baiduTieBa.firstSign;
 //用于记录前半部分，包括num和title
 var finalDataPart = [];
 //最终数据
 var finalData = [];
+//记录页面数的字段
+var pageIndex = 2;
+var ep = new eventproxy();
 
 var init = function(){
     var rule = new schedule.RecurrenceRule();
@@ -38,7 +43,6 @@ var getFactionSectionList = function(){
                 next(err);
             }
             var $ = cheerio.load(res.text);
-            var firstSign = config.websiteConfig[0].publishSite.baiduTieBa.firstSign;
             //test
             console.log("抓取到的最新的小说章节有" + $(firstSign).length + "章。");
             $(firstSign).each(function (idx, element) {
@@ -77,45 +81,55 @@ var getFactionSectionList = function(){
 };
 
 var getFactionContent = function(){
-    var ep = new eventproxy();
-    var secondSign = config.websiteConfig[0].publishSite.baiduTieBa.secondSign;
 
     ep.after('getFactionContentEvent', firstSignUrls.length, function(allEvents){
         allEvents = allEvents.map(function(everyEvent){
-            var url = everyEvent[0];
-            var html = everyEvent[1];
-            var $ = cheerio.load(html);
-            //写入文件
-            fs.writeFile('result.txt', $.html(), function (err) {
-                if (err) throw err;
-            });
-
-            var allTexts = [];
-            $(secondSign).each(function(idx, element){
-                var $element = $(element);
-                //把html转text
-                var text = htmlToText.fromString($element.html(), {
-                    wordwrap: 130
-                });
-                allTexts.push(text);
-            })
-
-            return ({
-                sectionContent: myAppTools.selectCorrect(allTexts)
-            });
+            console.log(everyEvent);
         });
 
-        //为
-        console.log('final:');
-        finalData = myAppTools.concatJSON(finalDataPart, allEvents);
-        console.log(finalData);
+        // //为
+        // console.log('final:');
+        // finalData = myAppTools.concatJSON(finalDataPart, allEvents);
+        // console.log(finalData);
     });
 
     firstSignUrls.forEach(function(firstSignUrl){
-        superagent.get(firstSignUrl)
-            .end(function(err, res){
-                console.log('fetch '+firstSignUrl+' successful!');
-                ep.emit('getFactionContentEvent', [firstSignUrl, res.text]);
-            });
+        //每次调用之前将pageIndex还原
+        pageIndex = 2;
+        getPageContent(firstSignUrl);
     });
+};
+
+//纯访问页面，为了递归调用
+var getPageContent = function(url){
+    var allTexts = [];
+    superagent.get(url)
+        .end(function(err, res){
+            console.log('fetch '+url+' successful!');
+            //将获取小说内容的工作放到superagent之后
+            var $ = cheerio.load(res.text);
+            $(secondSign).each(function(idx, element){
+                var $element = $(element);
+                //把html转text
+                var text = htmlToText.fromString($element.html(), {wordwrap: 130});
+                allTexts.push(text);
+            });
+            var sectionContent = myAppTools.selectCorrect(allTexts);
+            //如果获取不到当前小说章节内容，尝试往下一页获取
+            if(sectionContent == ''){
+                //如果url包含pn
+                var pnIndex = url.indexOf('?pn=');
+                if(pnIndex >= 0){
+                    var newUrl = url.substring(0, pnIndex)+'?pn='+ pageIndex;
+                }else{
+                    var newUrl = url+'?pn='+ pageIndex;
+                }
+                //为下一页做准备
+                pageIndex++;
+                getPageContent(newUrl);
+            }else{
+                //获取成功，把正确的文章内容传给after
+                ep.emit('getFactionContentEvent', sectionContent);
+            }
+        });
 };
