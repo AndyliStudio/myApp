@@ -68,6 +68,26 @@ var concatJSON = function(JSONArray1, JSONArray2){
     return finalJSONArray;
 }
 
+//提取JSON数组里某个特殊字段形成数组
+var getElementArray = function(jsonArray, element){
+    if(!jsonArray instanceof Object){
+        console.log("提取json数组中特定值时传入的json数组格式错误1！");
+        return null;
+    }
+    var resultArray = [];
+    for(var i=0; i<jsonArray.length; i++){
+        //这个地方不能直接用变量来引用json的属性，会出现undefined的错误
+        if(jsonArray[i][element] == undefined){
+            console.log("提取json数组中特定值时传入的json数组格式错误2！");
+            return null;
+        }else{
+             resultArray[i] = jsonArray[i][element];
+        }
+    }
+    return resultArray;
+}
+
 exports.isInArray = isInArray;
 exports.selectCorrect = selectCorrect;
 exports.concatJSON = concatJSON;
+exports.getElementArray = getElementArray;

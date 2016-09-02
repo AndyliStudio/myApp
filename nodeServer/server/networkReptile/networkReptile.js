@@ -9,6 +9,7 @@ var myAppTools = require('./tools/myAppTools');
 var fs = require('fs');
 var htmlToText = require('html-to-text');
 var chinese_parseInt = require('./tools/chinese-parseint');
+var connectDB = require('./connectDB/connectDB');
 
 var app = express();
 var firstSignUrls = [];
@@ -97,8 +98,21 @@ var getFactionContent = function(){
             }
 
         });
-        console.log(finalDataPart);
         //至此爬虫执行完毕,将内容写进数据库
+
+        console.log('以下是爬到的章节的内容，以及他们的存储情况：');
+        for(var j=0; j<finalDataPart.length; j++){
+            var jsonTemp = {
+                factionName: '大主宰',
+                sectionNum: finalDataPart[j].sectionNum,
+                sectionTitle: finalDataPart[j].sectionTitle,
+                sectionContent: finalDataPart[j].sectionContent,
+                sectionResource: '百度贴吧',
+                recentUpdateTime: finalDataPart[j].upDateTime
+            };
+            //调用存储函数
+            connectDB.saveFaction(jsonTemp);
+        }
     });
 
     firstSignUrls.forEach(function(firstSignUrl){
