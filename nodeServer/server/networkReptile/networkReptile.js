@@ -68,7 +68,9 @@ var getFactionSectionList = function(){
                 var finalDataPartElement = {
                     sectionNum: sectionNum,
                     sectionTitle: sectionTitle,
-                    url: href
+                    url: href,
+                    sectionContent: '',
+                    upDateTime: new Date()
                 };
 
                 if(!myAppTools.isInArray(finalDataPart, finalDataPartElement)){
@@ -84,13 +86,19 @@ var getFactionContent = function(){
 
     ep.after('getFactionContentEvent', firstSignUrls.length, function(allEvents){
         allEvents = allEvents.map(function(everyEvent){
-            console.log(everyEvent);
-        });
+            //根据小说内容扒取sectionNum
+            var sectionNum = chinese_parseInt(everyEvent.slice(everyEvent.indexOf('第')+1, everyEvent.indexOf('章')).trim())
+            console.log(sectionNum);
+            //对finalDataPart进行遍历，把内容填充进去，没拔到的留空
+            for(var i=0; i<finalDataPart.length; i++){
+                if(sectionNum == finalDataPart[i].sectionNum){
+                    finalDataPart[i].sectionContent = everyEvent;
+                }
+            }
 
-        // //为
-        // console.log('final:');
-        // finalData = myAppTools.concatJSON(finalDataPart, allEvents);
-        // console.log(finalData);
+        });
+        console.log(finalDataPart);
+        //至此爬虫执行完毕,将内容写进数据库
     });
 
     firstSignUrls.forEach(function(firstSignUrl){
