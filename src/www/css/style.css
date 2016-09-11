@@ -31,3 +31,14 @@
 .leadPage-container .yellow{
     background-color: yellow;
 }
+
+
+/*login-container*/
+.login-container form{
+    margin-top: 100px;
+}
+
+/*registe-container*/
+.registe-container form{
+    margin-top: 100px;
+}

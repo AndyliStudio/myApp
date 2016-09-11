@@ -1,0 +1,18 @@
+<ion-view view-title="login">
+  <ion-content class="padding login-container">
+    <h4>登陆myApp</h4>
+    <form>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <input type="text" placeholder="username" name="username" ng-model="username">
+        </label>
+        <label class="item item-input">
+          <input type="text" placeholder="password" name="password" ng-model="password">
+        </label>
+      </div>
+      <button class="button button-block button-positive" ng-click="doLogin(username, password)">
+        登录
+      </button>
+    </form>
+  </ion-content>
+</ion-view>

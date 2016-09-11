@@ -49,6 +49,26 @@ angular.module('myApp', ['ionic', 'myApp.controllers', 'myApp.services'])
     }
   })
 
+  .state('app.login', {
+    url: '/login',
+    views: {
+      'app-login': {
+        templateUrl: 'templates/app-login.html',
+        controller: 'LoginCtrl'
+      }
+    }
+  })
+
+  .state('app.registe', {
+    url: '/registe',
+    views: {
+      'app-registe': {
+        templateUrl: 'templates/app-registe.html',
+        controller: 'RegisteCtrl'
+      }
+    }
+  })
+
   .state('app.dash', {
     url: '/dash',
     views: {

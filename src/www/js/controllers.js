@@ -1,4 +1,8 @@
 angular.module('myApp.controllers', [])
+//定义常量
+.constant('fooConfig', {
+    apiHost: 'http://0.0.0.0:3000/api',
+})
 
 .controller('DashCtrl', function($scope) {})
 
@@ -31,4 +35,51 @@ angular.module('myApp.controllers', [])
   $scope.slideChanged = function(index) {
       $scope.slideIndex = index;
   };
+})
+
+.controller('LoginCtrl', function($scope, $state, fooConfig, $http) {
+  $scope.username = '';
+  $scope.password = '';
+  $scope.doLogin = function(username, password){
+    var registeUrl = fooConfig.apiHost+'/Users/login';
+    var postData = {
+      "username": username,
+      "password": password
+    };
+    console.log(postData);
+    $http.post(registeUrl, postData).
+      success(function(data, status, headers, config) {
+        console.log('login成功！！');
+        event.preventDefault();
+        $state.go('app.registe');
+      }).
+      error(function(data, status, headers, config) {
+        console.log("login失败！！");
+      });
+    };
+  
+})
+
+.controller('RegisteCtrl', function($scope, $state, fooConfig, $http) {
+  $scope.username = '';
+  $scope.email = '';
+  $scope.password=
+  $scope.doRegiste = function(){
+    var registeUrl = fooConfig.apiHost+'/Users/login';
+    var postData = {
+      "username": $scope.username,
+      "email": $scope.email,
+      "emailVerified": false,
+      "password": $scope.password
+    };
+    console.log(postData);
+    $http.post(registeUrl, postData).
+      success(function(data, status, headers, config) {
+        console.log('注册成功！！');
+      }).
+      error(function(data, status, headers, config) {
+        console.log("注册失败！！");
+      });
+    };
+  
 });
