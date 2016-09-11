@@ -42,3 +42,12 @@
 .registe-container form{
     margin-top: 100px;
 }
+
+/*main-container*/
+.mian-container{
+    overflow: hidden;
+}
+.mian-container .mytabs{
+    position: fixed;
+    bottom: 0px;
+}

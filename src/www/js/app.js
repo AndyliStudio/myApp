@@ -79,46 +79,38 @@ angular.module('myApp', ['ionic', 'myApp.controllers', 'myApp.services'])
     }
   })
 
-  .state('app.dash', {
-    url: '/dash',
+  //main页面子页面路由
+ .state('app.main.applist', {
+    url: '/applist',
     views: {
-      'app-dash': {
-        templateUrl: 'templates/app-dash.html',
-        controller: 'DashCtrl'
+      'main-applist': {
+        templateUrl: 'templates/main/main-applist.html',
+        controller: 'AppListCtrl'
       }
     }
   })
 
-  .state('app.chats', {
-      url: '/chats',
-      views: {
-        'app-chats': {
-          templateUrl: 'templates/app-chats.html',
-          controller: 'ChatsCtrl'
-        }
-      }
-    })
-    .state('app.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'app-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
-
-  .state('app.account', {
-    url: '/account',
+   .state('app.main.message', {
+    url: '/message',
     views: {
-      'app-account': {
-        templateUrl: 'templates/app-account.html',
-        controller: 'AccountCtrl'
+      'main-message': {
+        templateUrl: 'templates/main/main-message.html',
+        controller: 'MessageCtrl'
+      }
+    }
+  })
+
+   .state('app.main.setting', {
+    url: '/setting',
+    views: {
+      'main-setting': {
+        templateUrl: 'templates/main/main-setting.html',
+        controller: 'SettingCtrl'
       }
     }
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/dash');
+  $urlRouterProvider.otherwise('/app/main');
 
 });

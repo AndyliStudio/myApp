@@ -1,4 +1,25 @@
 <ion-view view-title="main">
-  <ion-content class="padding registe-container">
+  <ion-content class="main-container" overflow-scroll="false">
+    <!--main下面的ioc-nav-view start-->
+    <ion-nav-view name="main-applist"></ion-nav-view>
+    <ion-nav-view name="main-message"></ion-nav-view>
+    <ion-nav-view name="main-setting"></ion-nav-view>
+    <!--main下面的ioc-nav-view end-->
+
   </ion-content>
+  <!--tab start-->
+  <ion-tabs class="tabs-striped tabs-color-calm mytabs">
+
+    <ion-tab title="我的应用" icon-on="ion-ios-keypad" icon-off="ion-ios-keypad-outline" href="#/app/main/applist">
+    </ion-tab>
+
+    <ion-tab title="我的消息" icon-on="ion-ios-chatbubble" icon-off="ion-ios-chatbubble-outline" href="#/app/main/message" badge="2" badge-style="tabs-energized">
+    </ion-tab>
+
+    <ion-tab title="设置" icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline" href="#/app/main/setting">
+    </ion-tab>
+
+  </ion-tabs>
+
+  <!--tab end-->
 </ion-view>
