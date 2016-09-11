@@ -1,5 +1,39 @@
-<ion-view view-title="applist">
-  <ion-content class="padding applist-container">
-      wo shi applist
+<ion-view view-title="applist" can-swipe-back="false">
+  <ion-content class="padding applist-container" overflow-scroll="false">
+    <div class="row">
+      <div class="col">
+        <div class="card faction-card" ng-click="state.go('app.main.applist.faction');">
+          <p class="about">免费小说</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card todolist-card">
+          <p class="about">任务列表</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="card cunqianguan-card">
+          <p class="about">存钱罐</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card genzong-card">
+          <p class="about">跟踪</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="card upload-card">
+          <p class="about">互传</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card waiting-card">
+        </div>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

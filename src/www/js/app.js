@@ -23,7 +23,8 @@ angular.module('myApp', ['ionic', 'myApp.controllers', 'myApp.services'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+$ionicConfigProvider.tabs.position('bottom'); //top
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -108,8 +109,14 @@ angular.module('myApp', ['ionic', 'myApp.controllers', 'myApp.services'])
         controller: 'SettingCtrl'
       }
     }
-  });
+  })
 
+  // applist子页面路由
+   .state('app.main.applist.faction', {
+    url: '/faction',
+    templateUrl: 'templates/main/applist/applist-faction.html',
+    controller: 'FactionCtrl'
+  });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/main');
 

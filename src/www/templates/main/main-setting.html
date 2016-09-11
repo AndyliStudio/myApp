@@ -1,5 +1,8 @@
-<ion-view view-title="setting">
+<ion-view view-title="setting" can-swipe-back="false" nav-view="(state.includes('app.main.setting'))? 'active': ''">
   <ion-content class="padding setting-container">
      wo shi setting
+     {{state.includes('app.main.applist')}}
+     {{state.includes('app.main.message')}}
+     {{state.includes('app.main.setting')}}
   </ion-content>
 </ion-view>

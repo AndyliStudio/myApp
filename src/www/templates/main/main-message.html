@@ -1,5 +1,8 @@
-<ion-view view-title="message">
+<ion-view view-title="message" can-swipe-back="false" nav-view="(state.includes('app.main.message'))? 'active': ''">
   <ion-content class="padding message-container">
       wo shi message
+      {{state.includes('app.main.applist')}}
+     {{state.includes('app.main.message')}}
+     {{state.includes('app.main.setting')}}
   </ion-content>
 </ion-view>
