@@ -82,4 +82,9 @@ angular.module('myApp.controllers', [])
       });
     };
   
+})
+
+//主界面controller
+.controller('RegisteCtrl', function($scope, $state, fooConfig, $http) {
+  
 });

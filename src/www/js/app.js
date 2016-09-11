@@ -69,6 +69,16 @@ angular.module('myApp', ['ionic', 'myApp.controllers', 'myApp.services'])
     }
   })
 
+  .state('app.main', {
+    url: '/main',
+    views: {
+      'app-main': {
+        templateUrl: 'templates/app-main.html',
+        controller: 'MainCtrl'
+      }
+    }
+  })
+
   .state('app.dash', {
     url: '/dash',
     views: {
@@ -109,6 +119,6 @@ angular.module('myApp', ['ionic', 'myApp.controllers', 'myApp.services'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/leadPage');
+  $urlRouterProvider.otherwise('/app/dash');
 
 });
