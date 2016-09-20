@@ -26,17 +26,16 @@ var ep = new eventproxy();
 var init = function(){
     var rule = new schedule.RecurrenceRule();
     //每天0点执行就是rule.hour =0;rule.minute =0;rule.second =0;
-    rule.second =[0, 10, 20, 30, 40, 50];
-    // rule.hour =18;rule.minute =0;rule.second =0;
-    // var j = schedule.scheduleJob(rule, function(){
-    //     //每次执行前都清空firstSignUrls， finalDataPart，finalData
-    //     firstSignUrls = [];
-    //     finalDataPart = [];
-    //     finalData = [];
-    //     console.log('小说爬取中，每天18:00点更新.......');
-    //     getFactionSectionList();
-    // });
-    // getFactionSectionList();
+    // rule.second =[0, 10, 20, 30, 40, 50];
+    rule.hour =18;rule.minute =0;rule.second =0;
+    var j = schedule.scheduleJob(rule, function(){
+        //每次执行前都清空firstSignUrls， finalDataPart，finalData
+        firstSignUrls = [];
+        finalDataPart = [];
+        finalData = [];
+        console.log('小说爬取中，每天18:00点更新.......');
+        getFactionSectionList();
+    });
 };
 init();
 
@@ -89,7 +88,6 @@ var getFactionSectionList = function(){
             getFactionContent();
         });
 };
-getFactionSectionList();
 var getFactionContent = function(){
 
     ep.after('getFactionContentEvent', firstSignUrls.length, function(allEvents){

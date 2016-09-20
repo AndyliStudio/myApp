@@ -14,13 +14,19 @@ var websiteConfig = [
     }
 
 ];
-
+var localMongoJson = {
+  url: '127.0.0.1',
+  port: '27017',
+  dbName: 'myApp',
+  username: 'user001',
+  password: '123456'
+};
 var mongoConfig = {
-    url: '127.0.0.1',
-    port: '27017',
-    dbName: 'myApp',
-    username: 'user001',
-    password: '123456'
+    url: 'ds021326.mlab.com',
+    port: '21326',
+    dbName: 'myapp',
+    username: 'lidikang',
+    password: '121960425mongo'
 }
 //暴露websiteConfig
 exports.websiteConfig = websiteConfig;
