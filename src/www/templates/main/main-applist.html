@@ -1,8 +1,9 @@
+<ion-nav-view></ion-nav-view>
 <ion-view view-title="applist" can-swipe-back="false">
-  <ion-content class="padding applist-container" overflow-scroll="false">
+  <ion-content class="padding applist-container">
     <div class="row">
       <div class="col">
-        <div class="card faction-card" ng-click="state.go('app.main.applist.faction');">
+        <div class="card faction-card" ui-sref="app.main.applist.faction">
           <p class="about">免费小说</p>
         </div>
       </div>

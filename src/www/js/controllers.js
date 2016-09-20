@@ -62,6 +62,7 @@ angular.module('myApp.controllers', [])
   //主界面controller
   .controller('MainCtrl', function ($scope, $state, fooConfig, $http) {
     $scope.state = $state;
+    // $state.go('app.main.applist');
   })
 
   /*

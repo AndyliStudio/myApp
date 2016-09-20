@@ -1,26 +1,26 @@
 {
-    "db": {
-        "name": "db",
-        "connector": "memory"
-    },
-    "mysql-local": {
-        "host": "127.0.0.1",
-        "port": 3306,
-        "url": "mysql://root:123456@127.0.0.1/andylistudio_user",
-        "database": "andylistudio_user",
-        "password": "123456",
-        "name": "mysql-local",
-        "user": "root",
-        "connector": "mysql"
-    },
-    "mongodb": {
-        "host": "127.0.0.1",
-        "port": 27017,
-        "url": "mongodb://dbAdmin:121960425db@127.0.0.1:27017/myApp",
-        "database": "myApp",
-        "password": "121960425db",
-        "name": "mongodb",
-        "user": "dbAdmin",
-        "connector": "mongodb"
-    }
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mysql-local": {
+    "host": "127.0.0.1",
+    "port": 3306,
+    "url": "mysql://root:123456@127.0.0.1/andylistudio_user",
+    "database": "andylistudio_user",
+    "password": "123456",
+    "name": "mysql-local",
+    "user": "root",
+    "connector": "mysql"
+  },
+  "mongodb": {
+    "host": "127.0.0.1",
+    "port": 27017,
+    "url": "mongodb://dbAdmin:121960425db@127.0.0.1:27017/myApp",
+    "database": "myApp",
+    "password": "121960425db",
+    "name": "mongodb",
+    "user": "dbAdmin",
+    "connector": "mongodb"
+  }
 }

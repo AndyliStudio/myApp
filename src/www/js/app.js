@@ -117,6 +117,7 @@ $ionicConfigProvider.tabs.position('bottom'); //top
     templateUrl: 'templates/main/applist/applist-faction.html',
     controller: 'FactionCtrl'
   });
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/main');
 

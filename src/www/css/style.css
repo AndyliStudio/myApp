@@ -49,6 +49,7 @@
 }
 .main-container .scroll{
     height: 100%;
+    transform: none !important;
 }
 
 /*applist-container*/

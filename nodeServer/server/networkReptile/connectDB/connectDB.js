@@ -1,12 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var config = require('../config'); 
+var config = require('../config');
 var chinese_parseInt = require('../tools/chinese-parseint');
 var myAppTools = require('../tools/myAppTools');
 
-// Connection URL 
+// Connection URL
 var url = 'mongodb://'+config.mongoConfig.username+':'+config.mongoConfig.password+'@'+config.mongoConfig.url+':'+config.mongoConfig.port+'/'+config.mongoConfig.dbName;
-// Use connect method to connect to the Server 
+// Use connect method to connect to the Server
 mongoose.connect(url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -96,7 +96,7 @@ var saveFaction = function(json){
                                         console.log('数据库无数据，请释放initDB函数，初始化数据！！');
                                     }else{
                                         var sectionNumArray = myAppTools.getElementArray(list[0].sectionArray, 'sectionNum');
-                                        
+
                                         if(myAppTools.isInArray(sectionNumArray, json.sectionNum)){
                                             //数据已存在
                                             console.log("数据库中已有"+json.factionName+"的第"+json.sectionNum+"章的小说，放弃存储！！");

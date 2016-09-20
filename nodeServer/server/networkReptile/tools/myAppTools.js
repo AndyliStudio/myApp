@@ -41,7 +41,7 @@ var selectCorrect = function(array){
         }
         return '';
     }
-}
+};
 
 //联合两个JSON数组, 比如JSON1=[{a:1, b:2}],JSON2=[{c:3, d:4}], concatJSON(JSON1, JSON2)结果为[{a:1, b:2, c:3, d:4}]
 var concatJSON = function(JSONArray1, JSONArray2){
@@ -66,7 +66,7 @@ var concatJSON = function(JSONArray1, JSONArray2){
         finalJSONArray.push(finalJSONArrayTemp);
     }
     return finalJSONArray;
-}
+};
 
 //提取JSON数组里某个特殊字段形成数组
 var getElementArray = function(jsonArray, element){
@@ -85,9 +85,27 @@ var getElementArray = function(jsonArray, element){
         }
     }
     return resultArray;
-}
+};
+
+//去掉第和章之间的非数字
+var removeNaN = function(str){
+  var standardNum = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '千', '百', '万', '亿'];
+  if(typeof str == 'string'){
+    var strArray = str.split("");
+    for(var i=0; i<strArray.length; i++){
+      if(!isInArray(standardNum, strArray[i])){
+        strArray[i] = '';
+      }
+    }
+    return strArray.join('');
+  }else{
+    console.log('你传给removeNaN的参数格式错误，不是一个string！');
+    return '';
+  }
+};
 
 exports.isInArray = isInArray;
 exports.selectCorrect = selectCorrect;
 exports.concatJSON = concatJSON;
 exports.getElementArray = getElementArray;
+exports.removeNaN = removeNaN;

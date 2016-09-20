@@ -26,14 +26,17 @@ var ep = new eventproxy();
 var init = function(){
     var rule = new schedule.RecurrenceRule();
     //每天0点执行就是rule.hour =0;rule.minute =0;rule.second =0;
-    rule.second =[0,10,20,30,40,50];
-    var j = schedule.scheduleJob(rule, function(){
-        //每次执行前都清空firstSignUrls， finalDataPart，finalData
-        firstSignUrls = [];
-        finalDataPart = [];
-        finalData = [];
-        getFactionSectionList();
-    });
+    rule.second =[0, 10, 20, 30, 40, 50];
+    // rule.hour =18;rule.minute =0;rule.second =0;
+    // var j = schedule.scheduleJob(rule, function(){
+    //     //每次执行前都清空firstSignUrls， finalDataPart，finalData
+    //     firstSignUrls = [];
+    //     finalDataPart = [];
+    //     finalData = [];
+    //     console.log('小说爬取中，每天18:00点更新.......');
+    //     getFactionSectionList();
+    // });
+    // getFactionSectionList();
 };
 init();
 
@@ -49,22 +52,26 @@ var getFactionSectionList = function(){
             $(firstSign).each(function (idx, element) {
                 var $element = $(element);
                 var firstSignID = $element.attr(config.websiteConfig[0].publishSite.baiduTieBa.inWhatAttr);
-                
-                //test
-                // console.log("第"+idx+'循环后finalDataPart为');
-                // console.log(finalDataPart);
-
-                //test
-                // console.log(firstSignID);
-                var href = url.resolve(config.websiteConfig[0].publishSite.baiduTieBa.coreUrl, firstSignID);
-                if(!myAppTools.isInArray(firstSignUrls, href)){
-                    firstSignUrls.push(href);
-                }
 
                 //获取章节数和章标题
-                var dealString = $element.text();
-                var sectionNum = chinese_parseInt(dealString.slice(dealString.indexOf('第')+1, dealString.indexOf('章')).trim());
-                var sectionTitle = dealString.substring(dealString.indexOf('章')+1).trim();
+                //这里做个判断并不是置顶的就一定会是小说，这些我们要排除
+                if($element.text().indexOf('第') < 0 || $element.text().indexOf('章') < 0){
+                  return true;
+                }
+
+                var href = url.resolve(config.websiteConfig[0].publishSite.baiduTieBa.coreUrl, firstSignID);
+                if(!myAppTools.isInArray(firstSignUrls, href)){
+                  firstSignUrls.push(href);
+                }
+                var reg = new RegExp('第.*章');
+                var dealString = myAppTools.removeNaN(reg.exec($element.text())[0]);
+                /*
+                * 积累正则
+                * var reg = new RegExp('第[一二三四五六七八九十]章');
+                * dealString.slice(dealString.indexOf('第')+1, dealString.indexOf('章')).trim()
+                * */
+                var sectionNum = chinese_parseInt(dealString);
+                var sectionTitle = $element.text().substring($element.text().indexOf('章')+1).trim();
 
                 var finalDataPartElement = {
                     sectionNum: sectionNum,
@@ -82,13 +89,14 @@ var getFactionSectionList = function(){
             getFactionContent();
         });
 };
-
+getFactionSectionList();
 var getFactionContent = function(){
 
     ep.after('getFactionContentEvent', firstSignUrls.length, function(allEvents){
         allEvents = allEvents.map(function(everyEvent){
             //根据小说内容扒取sectionNum
-            var sectionNum = chinese_parseInt(everyEvent.slice(everyEvent.indexOf('第')+1, everyEvent.indexOf('章')).trim())
+            var reg = new RegExp('第.*章');
+            var sectionNum = chinese_parseInt(myAppTools.removeNaN(reg.exec(everyEvent)[0]));
             console.log(sectionNum);
             //对finalDataPart进行遍历，把内容填充进去，没拔到的留空
             for(var i=0; i<finalDataPart.length; i++){

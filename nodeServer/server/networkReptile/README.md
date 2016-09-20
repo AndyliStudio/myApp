@@ -6,7 +6,7 @@
 
 ```
 var schedule = require('node-schedule');
- 
+
 var j = schedule.scheduleJob('42 * * * *', function(){
   console.log('The answer to life, the universe, and everything!');
 });
@@ -36,7 +36,7 @@ var j = schedule.scheduleJob('42 * * * *', function(){
 1. 数据库无数据，请释放initDB函数，初始化数据！！
 
    请在/connectDB/connectDB.js中早到init方法，将其从注释状态释放，然后打开terminal输入node connectDB.js初始化数据库
-   
+
 2. 现在程序只会每隔一天时间从百度贴吧扒文章，以后会继续加入起点，以及其他小说源网页的爬虫。
 
 ## + 截图
@@ -47,3 +47,6 @@ var j = schedule.scheduleJob('42 * * * *', function(){
 
 ![img1](http://res.cloudinary.com/idwzx/image/upload/v1472804324/Screenshot_from_2016-09-02_16-18-13_f7rulp.png)
 
+3. mongo菜鸟笔记
++ 怎更新文档：
+db.factionlistmodels.update({factionName: '大主宰'}, {$set: {sectionArray:  [....]}});
