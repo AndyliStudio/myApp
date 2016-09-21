@@ -35,12 +35,12 @@ var pageIndex = 2;
 var ep = new eventproxy();
 
 
-fs.exists('nodeServer/server/networkReptile/log', function(ret){
+fs.exists('log', function(ret){
   if(!ret){
     logger.warn('日志目录不存在，正在为你创建....');
-    fs.mkdir('nodeServer/server/networkReptile/log');
+    fs.mkdir('log');
   }
-  fs.open('nodeServer/server/networkReptile/log/networkReptile.log', 'a', function (err, fd) {
+  fs.open('log/networkReptile.log', 'a', function (err, fd) {
     if(err){
       console.log('创建日志文件失败！');
     }else{
