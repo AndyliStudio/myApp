@@ -3,16 +3,27 @@ var Schema = mongoose.Schema;
 var config = require('../config');
 var chinese_parseInt = require('../tools/chinese-parseint');
 var myAppTools = require('../tools/myAppTools');
+//日志相关
+var log4js = require('log4js');
+//config log
+log4js.configure({
+  appenders: [
+    { type: 'console' },
+    { type: 'file', filename: 'nodeServer/server/networkReptile/log/networkReptile.log', category: 'networkReptile' }
+  ]
+});
+var logger = log4js.getLogger('networkReptile');
+// logger.setLevel('ERROR');
 
 // Connection URL
 var url = 'mongodb://'+config.mongoConfig.username+':'+config.mongoConfig.password+'@'+config.mongoConfig.url+':'+config.mongoConfig.port+'/'+config.mongoConfig.dbName;
 // Use connect method to connect to the Server
 mongoose.connect(url);
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+db.on('error', function(err){logger.error('连接数据库失败：'+err)});
 db.once('open', function() {
     // we're connected!
-    console.log('connect to mongodb successfully!!, the url is :'+url);
+    logger.info('连接数据成功，url是：'+ url);
 });
 
 //定义存储小说内容的schema
@@ -54,18 +65,18 @@ var initDB = function(){
     var factionContentEntity = new factionContentModel({sectionNum: 1, sectionTitle: '测试章节', sectionContent: '这是我存进去的第一章，仅供测试', sectionResource: '百度贴吧', recentUpdateTime: new Date()});
     factionContentEntity.save(function(err){
         if(err){
-            console.log("小说内容实体存储-----失败，"+ err);
+            logger.warn("小说内容实体存储-----失败，"+ err);
         }else{
-            console.log("小说内容实体存储-----成功！");
+            logger.info("小说内容实体存储-----成功！");
         }
     });
     //创建实例
     var factionListEntity = new factionListModel({factionName: '大主宰', des: '大千世界，位面交汇，万族林立，群雄荟萃，一位位来自下位面的天之至尊，在这无尽世界，演绎着令人向往的传奇，追求着那主宰之路。 无尽火域，炎帝执掌，万火焚苍穹。 武境之内，武祖之威，震慑乾坤。 西天之殿，百战之皇，战威无可敌。 北荒之丘，万墓之地，不死之主镇天地。 ...... 少年自北灵境而出，骑九幽冥雀，闯向了那精彩绝伦的纷纭世界，主宰之路，谁主沉浮？ 大千世界，万道争锋，吾为大主宰。', headerImage: 'http://res.cloudinary.com/idwzx/image/upload/v1472746056/dazhuzai_y6428k.jpg', author: '天蚕土豆',sectionArray: [factionContentEntity._id], updateTime: new Date()});
     factionListEntity.save(function(err){
         if(err){
-            console.log("小说列表实体存储-----失败，"+ err);
+            logger.warn("小说列表实体存储-----失败，"+ err);
         }else{
-            console.log("小说列表实体存储-----成功！");
+            logger.info("小说列表实体存储-----成功！");
         }
     });
     //关闭数据库链接
@@ -77,14 +88,13 @@ var initDB = function(){
 var updateSectionList = function(){
   factionContentModel.find().exec(function(err, list){
     if(err){
-      console.log('查询factionContent文档失败，'+err);
+      logger.warn('查询factionContent文档失败，'+err);
     }else{
-      console.log(myAppTools.getElementArray(list, '_id'));
       factionListModel.update({}, {$set : {sectionArray : list}}).exec(function(err){
         if(err){
-          console.log('存储前更新list失败，'+ err);
+          logger.warn('存储前更新list失败，'+ err);
         }else{
-          console.log('存储前更新list成功！，');
+          logger.info('存储前更新list成功！，');
         }
       });
     }
@@ -94,7 +104,7 @@ var updateSectionList = function(){
 //存储小说的方法
 var saveFaction = function(json){
     if(!(json.sectionNum && json.factionName)){
-        console.log('存储数据时，格式错误！！');
+        logger.warn('存储数据时，格式错误！！');
         return;
     }else{
         //首先写好sectionArray，最重要的
@@ -104,20 +114,20 @@ var saveFaction = function(json){
                         //    .sort({updateTime: -1})
                            .exec(function(err, list){
                                if(err){
-                                   console.log("查询mongo-----失败！"+err);
+                                   logger.warn("查询mongo-----失败！"+err);
                                }else{
                                     //只可能有一条记录，没有多余的
                                     //从list[0].sectionArray中提取出sectionNum---[{"_id":"57c8eaeec70bd8882b0c20da","sectionNum":2},{"_id":"57c85f18463272883ffd8283","sectionNum":1}]
                                     //增强程序健壮性，当数据库为空的时候，不可以应用list[0]
                                     if(list.length == 0){
                                         // list.push({_id: '0000000000000000000000000', sectionNum: '0'});//无数据的默认值
-                                        console.log('数据库无数据，请释放initDB函数，初始化数据！！');
+                                        logger.fatal('数据库无数据，请释放initDB函数，初始化数据！！');
                                     }else{
                                         var sectionNumArray = myAppTools.getElementArray(list[0].sectionArray, 'sectionNum');
 
                                         if(myAppTools.isInArray(sectionNumArray, json.sectionNum)){
                                             //数据已存在
-                                            console.log("数据库中已有"+json.factionName+"的第"+json.sectionNum+"章的小说，放弃存储！！");
+                                            logger.debug("数据库中已有"+json.factionName+"的第"+json.sectionNum+"章的小说，放弃存储！！");
                                             return;
                                         }else{
                                             //组装数据
@@ -133,9 +143,9 @@ var saveFaction = function(json){
                                             var factionContentEntity = new factionContentModel(jsonTemp);
                                             factionContentEntity.save(function(err){
                                                 if(err){
-                                                    console.log(json.factionName+' 的第 '+json.sectionNum+' 章 '+json.sectionTitle+' factionContentModel 更新-----失败！'+ err);
+                                                    logger.warn(json.factionName+' 的第 '+json.sectionNum+' 章 '+json.sectionTitle+' factionContentModel 更新-----失败！'+ err);
                                                 }else{
-                                                    console.log(json.factionName+' 的第 '+json.sectionNum+' 章 '+json.sectionTitle+' factionContentModel 更新-----成功！');
+                                                    logger.info(json.factionName+' 的第 '+json.sectionNum+' 章 '+json.sectionTitle+' factionContentModel 更新-----成功！');
                                                 }
                                             });
 
@@ -149,9 +159,9 @@ var saveFaction = function(json){
 
                                             factionListModel.update(conditions, update, options, function(error){
                                                 if(error) {
-                                                    console.log(json.factionName+' 的第 '+json.sectionNum+' 章 '+json.sectionTitle+' factionListModel 更新-----失败！'+error);
+                                                    logger.warn(json.factionName+' 的第 '+json.sectionNum+' 章 '+json.sectionTitle+' factionListModel 更新-----失败！'+error);
                                                 } else {
-                                                    console.log(json.factionName+' 的第 '+json.sectionNum+' 章 '+json.sectionTitle+' factionListModel 更新-----成功！');
+                                                    logger.info(json.factionName+' 的第 '+json.sectionNum+' 章 '+json.sectionTitle+' factionListModel 更新-----成功！');
                                                 }
                                                 //关闭数据库链接
                                                 // db.close();

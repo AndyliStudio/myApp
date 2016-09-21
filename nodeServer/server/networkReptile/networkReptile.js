@@ -10,6 +10,17 @@ var fs = require('fs');
 var htmlToText = require('html-to-text');
 var chinese_parseInt = require('./tools/chinese-parseint');
 var connectDB = require('./connectDB/connectDB');
+//日志相关
+var log4js = require('log4js');
+//config log
+log4js.configure({
+  appenders: [
+    { type: 'console' },
+    { type: 'file', filename: 'nodeServer/server/networkReptile/log/networkReptile.log', category: 'networkReptile' }
+  ]
+});
+var logger = log4js.getLogger('networkReptile');
+// logger.setLevel('ERROR');
 
 var app = express();
 var firstSignUrls = [];
@@ -23,6 +34,22 @@ var finalData = [];
 var pageIndex = 2;
 var ep = new eventproxy();
 
+
+fs.exists('nodeServer/server/networkReptile/log', function(ret){
+  if(!ret){
+    logger.warn('日志目录不存在，正在为你创建....');
+    fs.mkdir('nodeServer/server/networkReptile/log');
+  }
+  fs.open('nodeServer/server/networkReptile/log/networkReptile.log', 'a', function (err, fd) {
+    if(err){
+      console.log('创建日志文件失败！');
+    }else{
+      logger.info('\n\n\n\n\n');
+      init();
+    }
+  });
+});
+
 var init = function(){
     var rule = new schedule.RecurrenceRule();
     //每天0点执行就是rule.hour =0;rule.minute =0;rule.second =0;
@@ -33,13 +60,19 @@ var init = function(){
         firstSignUrls = [];
         finalDataPart = [];
         finalData = [];
-        console.log('小说爬取中，每天18:00点更新.......');
+
+        var date = new Date();
+        logger.info('今天是 '+date+'，每天18:00点更新.......');
         //更新数据库factionList
         connectDB.updateSectionList();
         getFactionSectionList();
     });
+  var date = new Date();
+  logger.info('今天是 '+date+'，每天18:00点更新.......');
+  //更新数据库factionList
+  connectDB.updateSectionList();
+  getFactionSectionList();
 };
-init();
 
 var getFactionSectionList = function(){
     superagent.get(config.websiteConfig[0].publishSite.baiduTieBa.url)
@@ -49,7 +82,7 @@ var getFactionSectionList = function(){
             }
             var $ = cheerio.load(res.text);
             //test
-            console.log("抓取到的最新的小说章节有" + $(firstSign).length + "章。");
+            logger.info("抓取到的最新的小说章节有" + $(firstSign).length + "章。");
             $(firstSign).each(function (idx, element) {
                 var $element = $(element);
                 var firstSignID = $element.attr(config.websiteConfig[0].publishSite.baiduTieBa.inWhatAttr);
@@ -99,7 +132,7 @@ var getFactionContent = function(){
             //根据小说内容扒取sectionNum
             var reg = new RegExp('第.*章');
             var sectionNum = chinese_parseInt(myAppTools.removeNaN(reg.exec(everyEvent)[0]));
-            console.log(sectionNum);
+            logger.trace('爬取到小说第'+sectionNum+'章..');
             //对finalDataPart进行遍历，把内容填充进去，没拔到的留空
             for(var i=0; i<finalDataPart.length; i++){
                 if(sectionNum == finalDataPart[i].sectionNum){
@@ -110,7 +143,7 @@ var getFactionContent = function(){
         });
         //至此爬虫执行完毕,将内容写进数据库
 
-        console.log('以下是爬到的章节的内容，以及他们的存储情况：');
+        logger.info('以下是爬到的章节的内容，以及他们的存储情况：');
         for(var j=0; j<finalDataPart.length; j++){
             var jsonTemp = {
                 factionName: '大主宰',
@@ -137,7 +170,7 @@ var getPageContent = function(url){
     var allTexts = [];
     superagent.get(url)
         .end(function(err, res){
-            console.log('fetch '+url+' successful!');
+            logger.info('获取网址（'+url+'）内容成功!');
             //将获取小说内容的工作放到superagent之后
             var $ = cheerio.load(res.text);
             $(secondSign).each(function(idx, element){
