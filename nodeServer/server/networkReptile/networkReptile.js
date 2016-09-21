@@ -34,6 +34,8 @@ var init = function(){
         finalDataPart = [];
         finalData = [];
         console.log('小说爬取中，每天18:00点更新.......');
+        //更新数据库factionList
+        connectDB.updateSectionList();
         getFactionSectionList();
     });
 };
@@ -88,6 +90,8 @@ var getFactionSectionList = function(){
             getFactionContent();
         });
 };
+// getFactionSectionList();
+
 var getFactionContent = function(){
 
     ep.after('getFactionContentEvent', firstSignUrls.length, function(allEvents){

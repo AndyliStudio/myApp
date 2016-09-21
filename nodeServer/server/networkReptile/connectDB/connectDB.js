@@ -73,6 +73,24 @@ var initDB = function(){
 };
 // initDB();
 
+//每次存储之前都根据，factionContent里的内容更新sectionList
+var updateSectionList = function(){
+  factionContentModel.find().exec(function(err, list){
+    if(err){
+      console.log('查询factionContent文档失败，'+err);
+    }else{
+      console.log(myAppTools.getElementArray(list, '_id'));
+      factionListModel.update({}, {$set : {sectionArray : list}}).exec(function(err){
+        if(err){
+          console.log('存储前更新list失败，'+ err);
+        }else{
+          console.log('存储前更新list成功！，');
+        }
+      });
+    }
+  })
+};
+
 //存储小说的方法
 var saveFaction = function(json){
     if(!(json.sectionNum && json.factionName)){
@@ -161,3 +179,4 @@ var saveFaction = function(json){
 
 //把存储方法暴露出来
 exports.saveFaction = saveFaction;
+exports.updateSectionList = updateSectionList;
