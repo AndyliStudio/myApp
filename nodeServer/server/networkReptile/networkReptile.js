@@ -16,7 +16,7 @@ var log4js = require('log4js');
 log4js.configure({
   appenders: [
     { type: 'console' },
-    { type: 'file', filename: 'nodeServer/server/networkReptile/log/networkReptile.log', category: 'networkReptile' }
+    { type: 'file', filename: 'log/networkReptile.log', category: 'networkReptile' }
   ]
 });
 var logger = log4js.getLogger('networkReptile');
@@ -67,11 +67,6 @@ var init = function(){
         connectDB.updateSectionList();
         getFactionSectionList();
     });
-  var date = new Date();
-  logger.info('今天是 '+date+'，每天18:00点更新.......');
-  //更新数据库factionList
-  connectDB.updateSectionList();
-  getFactionSectionList();
 };
 
 var getFactionSectionList = function(){
