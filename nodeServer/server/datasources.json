@@ -3,24 +3,14 @@
     "name": "db",
     "connector": "memory"
   },
-  "mysql-local": {
-    "host": "127.0.0.1",
-    "port": 3306,
-    "url": "mysql://root:123456@127.0.0.1/andylistudio_user",
-    "database": "andylistudio_user",
-    "password": "123456",
-    "name": "mysql-local",
-    "user": "root",
-    "connector": "mysql"
-  },
   "mongodb": {
-    "host": "127.0.0.1",
-    "port": 27017,
-    "url": "mongodb://dbAdmin:121960425db@127.0.0.1:27017/myApp",
-    "database": "myApp",
-    "password": "121960425db",
+    "host": "ds021326.mlab.com",
+    "port": 21326,
+    "url": "mongodb://lidikang:121960425mongo@ds021326.mlab.com:21326/myapp",
+    "database": "myapp",
+    "password": "121960425mongo",
     "name": "mongodb",
-    "user": "dbAdmin",
+    "user": "lidikang",
     "connector": "mongodb"
   }
 }

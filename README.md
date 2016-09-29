@@ -83,4 +83,16 @@ module.exports = function(Andylistudiouser) {
     }
 ```
 
++ datasource.json的mysql配置
+  "mysql-remote": {
+    "host": "qdm1300839.my3w.com",
+    "port": 3306,
+    "url": "mysql://qdm1300839:121960425sql@qdm1300839.my3w.com/qdm1300839_db",
+    "database": "qdm1300839_db",
+    "password": "121960425sql",
+    "name": "mysql-local",
+    "user": "qdm1300839",
+    "connector": "mysql"
+  },
+
 
