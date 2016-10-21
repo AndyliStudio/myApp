@@ -19,6 +19,7 @@
     "loopback-component-explorer": "^2.4.0",
     "loopback-connector-mongodb": "^1.15.2",
     "loopback-connector-mysql": "^2.3.0",
+    "loopback-context": "^1.0.0",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^1.0.1",
     "superagent": "^2.2.0"

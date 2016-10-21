@@ -1,0 +1,41 @@
+{
+  "name": "factionContent",
+  "plural": "factionContent",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "sectionNum": {
+      "type": "string",
+      "required": true,
+      "default": "undefined"
+    },
+    "sectionTitle": {
+      "type": "string",
+      "required": true,
+      "default": "undefined"
+    },
+    "sectionContent": {
+      "type": "string"
+    },
+    "sectionResource": {
+      "type": "string"
+    },
+    "recentUpdateTime": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}
