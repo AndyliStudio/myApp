@@ -39,5 +39,9 @@
   "factionContent": {
     "dataSource": "mongodb",
     "public": true
+  },
+  "factionList": {
+    "dataSource": "mongodb",
+    "public": true
   }
 }
