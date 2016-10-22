@@ -38,7 +38,7 @@ var factionContentSchema = new mongoose.Schema({
     recentUpdateTime: Date  //最新的更新时间，用来比对最新文章
 }, {safe:{j:1,w:1,wtimeout:10000}});
 //创建model
-var factionContentModel = mongoose.model('factionContentModel', factionContentSchema);
+var factionContentModel = mongoose.model('factionContent', factionContentSchema);
 
 //定义存储小说的schema
 var factionListSchema = new mongoose.Schema({
@@ -52,12 +52,12 @@ var factionListSchema = new mongoose.Schema({
     des: String, //小说说明
     headerImage: String, //小说首图链接
     author: String, //小说作者
-    sectionArray: [{type: Schema.Types.ObjectId, ref: 'factionContentModel'}], //小说章节列表, 每个元素是包含章节数、标题、章节内容的JSON
+    sectionArray: [{type: Schema.Types.ObjectId, ref: 'factionContent'}], //小说章节列表, 每个元素是包含章节数、标题、章节内容的JSON
     updateTime: Date //更新时间
 }, {safe:{j:1,w:1,wtimeout:10000}}); //new Schema(config,options); j表示做1份日志，w表示做2个副本（尚不明确），超时时间10秒
 
 //创建model
-var factionListModel = mongoose.model('factionListModel', factionListSchema);
+var factionListModel = mongoose.model('factionList', factionListSchema);
 
 //初始化函数
 var initDB = function(){

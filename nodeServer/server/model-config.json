@@ -36,11 +36,11 @@
     "dataSource": "mongodb",
     "public": true
   },
-  "factionContent": {
+  "factioncontents": {
     "dataSource": "mongodb",
     "public": true
   },
-  "factionList": {
+  "factionlists": {
     "dataSource": "mongodb",
     "public": true
   }

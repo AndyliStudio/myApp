@@ -1,6 +1,5 @@
 {
-  "name": "factionContent",
-  "plural": "factionContent",
+  "name": "factioncontents",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -8,14 +7,14 @@
   },
   "properties": {
     "sectionNum": {
-      "type": "string",
+      "type": "number",
       "required": true,
-      "default": "undefined"
+      "default": 0
     },
     "sectionTitle": {
       "type": "string",
       "required": true,
-      "default": "undefined"
+      "default": "未知张章节"
     },
     "sectionContent": {
       "type": "string"
@@ -24,24 +23,11 @@
       "type": "string"
     },
     "recentUpdateTime": {
-      "type": "string"
+      "type": "date"
     }
   },
   "validations": [],
-  "relations": {
-    "id": {
-      "type": "belongsTo",
-      "model": "factionList",
-      "foreignKey": ""
-    }
-  },
-  "acls": [
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW"
-    }
-  ],
+  "relations": {},
+  "acls": [],
   "methods": {}
 }
