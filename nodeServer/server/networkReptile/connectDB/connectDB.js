@@ -16,7 +16,8 @@ var logger = log4js.getLogger('networkReptile');
 // logger.setLevel('ERROR');
 
 // Connection URL
-var url = 'mongodb://'+config.mongoConfig.username+':'+config.mongoConfig.password+'@'+config.mongoConfig.url+':'+config.mongoConfig.port+'/'+config.mongoConfig.dbName;
+//var url = 'mongodb://'+config.mongoConfig.username+':'+config.mongoConfig.password+'@'+config.mongoConfig.url+':'+config.mongoConfig.port+'/'+config.mongoConfig.dbName;
+var url = 'mongodb://'+config.localMongoJson.username+':'+config.localMongoJson.password+'@'+config.localMongoJson.url+':'+config.localMongoJson.port+'/'+config.localMongoJson.dbName;
 // Use connect method to connect to the Server
 mongoose.connect(url);
 var db = mongoose.connection;
@@ -82,7 +83,7 @@ var initDB = function(){
     //关闭数据库链接
     // db.close();
 };
-// initDB();
+//initDB();
 
 //每次存储之前都根据，factionContent里的内容更新sectionList
 var updateSectionList = function(){

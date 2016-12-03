@@ -15,10 +15,10 @@ var websiteConfig = [
 
 ];
 var localMongoJson = {
-  url: '127.0.0.1',
+  url: '0.0.0.0',
   port: '27017',
   dbName: 'myApp',
-  username: 'user001',
+  username: 'lidikang',
   password: '123456'
 };
 var mongoConfig = {
@@ -31,3 +31,4 @@ var mongoConfig = {
 //暴露websiteConfig
 exports.websiteConfig = websiteConfig;
 exports.mongoConfig = mongoConfig;
+exports.localMongoJson = localMongoJson;
