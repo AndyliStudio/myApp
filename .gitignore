@@ -35,5 +35,6 @@ src/npm-debug.log
 src/plugins
 src/coverage
 
-
+#忽略sftp-config
+sftp-config.json
 
