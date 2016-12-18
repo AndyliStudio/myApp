@@ -15,7 +15,7 @@
   },
   "User": {
     "dataSource": "mongodb",
-    "public": "true"
+    "public": false
   },
   "AccessToken": {
     "dataSource": "mongodb",
@@ -42,6 +42,10 @@
     "public": true
   },
   "factionlists": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "as_user": {
     "dataSource": "mongodb",
     "public": true
   }

@@ -4,10 +4,10 @@
     "connector": "memory"
   },
   "mongodb": {
-    "host": "127.0.0.1",
+    "host": "0.0.0.0",
     "port": 27017,
-    "url": "mongodb://lidikang:123456@127.0.0.1:27017/ajax-login",
-    "database": "ajax-login",
+    "url": "mongodb://lidikang:123456@127.0.0.1:27017/myApp",
+    "database": "myApp",
     "password": "123456",
     "name": "mongodb",
     "user": "lidikang",
