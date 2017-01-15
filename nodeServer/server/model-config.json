@@ -35,7 +35,7 @@
   },
   "common": {
     "dataSource": "mongodb",
-    "public": true
+    "public": false
   },
   "factioncontents": {
     "dataSource": "mongodb",
@@ -46,6 +46,30 @@
     "public": true
   },
   "as_user": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "as_role": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "as_rolemapping": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "as_acl": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "as_accesstoken": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "email": {
+    "dataSource": "mongodb",
+    "public": true
+  },
+  "spore_article": {
     "dataSource": "mongodb",
     "public": true
   }

@@ -23,7 +23,8 @@
     "loopback-context": "^1.0.0",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^1.0.1",
-    "superagent": "^2.2.0"
+    "superagent": "^2.2.0",
+    "weapp-session": "^0.3.0"
   },
   "devDependencies": {
     "eslint": "^2.5.3",

@@ -1,0 +1,47 @@
+{
+  "name": "spore_article",
+  "plural": "spore_article",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "author": {
+      "type": "string",
+      "required": true,
+      "default": "XXX"
+    },
+    "publishTime": {
+      "type": "date",
+      "required": true
+    },
+    "headImg": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "readNum": {
+      "type": "number"
+    },
+    "shareNum": {
+      "type": "number"
+    },
+    "starNum": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}
