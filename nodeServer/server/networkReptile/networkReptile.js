@@ -78,14 +78,16 @@ var init = function () {
 var getFactionSectionList = function () {
   //遍历config中录入的所有小说
   config.websiteConfig.forEach(function (item1) {
+    logger.debug('现在爬取的小说是----《'+item1.factionName+'》');
+    var OK = false;
     item1.allResources.forEach(function (item2) {
+      logger.debug('爬取来源----'+item2.sourceName);
       //根据每个来源不同区别对待
       switch (item2.sourceName) {
         case '百度贴吧':
           getFactionListByUrl(item1.factionName, item2);
           break;
         case '爱下电子书':
-          logger.info("现在是爱下电子书的来源");
           getFactionListByUrl(item1.factionName, item2);
           break;
         default:
@@ -101,7 +103,7 @@ function getFactionListByUrl(factionName, factionInfo) {
   var readyToBroswerUrls = [];
   var getNewestFactionList = function (newestFactionNum) {
     //test, 爬去所有小说
-    newestFactionNum = 1320;
+    newestFactionNum = 1410;
     var totalNewestNum = 0;
     superagent.get(factionInfo.url)
       .end(function (err, res) {
@@ -224,11 +226,11 @@ function getPageContent(info, sectionContentUrl) {
             //如果获取不到当前小说章节内容，尝试往下一页获取
             if (sectionContent == '') {
               //如果url包含pn
-              var pnIndex = url.indexOf('?pn=');
+              var pnIndex = info.url.indexOf('?pn=');
               if (pnIndex >= 0) {
-                var newUrl = url.substring(0, pnIndex) + '?pn=' + pageIndex;
+                var newUrl = info.url.substring(0, pnIndex) + '?pn=' + pageIndex;
               } else {
-                var newUrl = url + '?pn=' + pageIndex;
+                var newUrl = info.url + '?pn=' + pageIndex;
               }
               //为下一页做准备
               pageIndex++;
